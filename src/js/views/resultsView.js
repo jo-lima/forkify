@@ -1,7 +1,7 @@
 import icons from "url:../../img/icons.svg";
 import View from "./View.js";
 
-class resultView extends View {
+class ResultView extends View {
   _parentElement = document.querySelector(".results");
   _errorMessage = "No recipes found for your query. Please try again!";
   _message = "";
@@ -12,7 +12,6 @@ class resultView extends View {
   }
 
   _generateMarkupPreview(result) {
-    console.log(result);
     return /* HTML */ `
       <li class="preview">
         <a class="preview__link" href="#${result.id}">
@@ -29,4 +28,4 @@ class resultView extends View {
   }
 }
 
-export default new resultView();
+export default new ResultView();
