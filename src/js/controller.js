@@ -28,6 +28,7 @@ const recipeContainer = document.querySelector(".recipe");
 // |ADDING THE controlRecipes() FUNCTION AS A HANDLER
 function init() {
   recipeView.addHandlerRender(controlRecipes);
+  recipeView.addHandlerUpdateServings(controlServings);
   searchView.addHandlerSearch(controlSearchResults);
   paginationView.addHandlerClick(controlPagination);
 }
@@ -45,7 +46,10 @@ async function controlRecipes(recipe) {
 
     recipeView.renderSpinner(recipeContainer); // RENDER SPINNER WHILE LOADING
 
+    resultsView.update(model.getSearchResultPage()); // Update results to mark selected recipe
+
     await model.loadRecipe(recipeID); // GET RECIPE
+    console.log(model.state.recipe);
     recipeView.render(model.state.recipe); // RENDER RECIPE
   } catch (error) {
     recipeView.renderError();
@@ -64,6 +68,14 @@ async function controlSearchResults() {
   } catch (error) {
     console.log(error);
   }
+}
+
+function controlServings(newServings) {
+  // Update recipe servings in state
+  model.updateServings(newServings);
+
+  // Update the view
+  recipeView.update(model.state.recipe); // RENDER RECIPE
 }
 
 init();
